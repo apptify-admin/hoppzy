@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const userRouter = require("./routes/user.route.js");
+const proofRouter = require("./routes/proof.route.js");
 const app = express();
 
 //middleware
@@ -9,6 +10,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api/user", userRouter);
+app.use("/api/proof", proofRouter);
 
 //test
 app.get("/", (req, res) => {
