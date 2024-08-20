@@ -18,12 +18,20 @@ const UserSchema = mongoose.Schema(
       type: String,
       required: [true, "Please enter a valid phone number"],
     },
+    verified: {
+      type: Boolean,
+    },
+    driving_license: {
+      type: String,
+    },
+    id_proof: {
+      type: String,
+    },
   },
   {
     timestamps: true,
   }
 );
-
 
 const User = mongoose.model("User", UserSchema);
 
