@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 
 const userRouter = require("./routes/user.route.js");
 const proofRouter = require("./routes/proof.route.js");
+const vendorRouter = require("./routes/vendors.route.js");
 const app = express();
 
 //middleware
@@ -11,6 +12,7 @@ app.use(express.json());
 // Routes
 app.use("/api/user", userRouter);
 app.use("/api/proof", proofRouter);
+app.use("/api/vendors", vendorRouter);
 
 //test
 app.get("/", (req, res) => {
