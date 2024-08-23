@@ -59,6 +59,28 @@ const updateVendor = async (req, res) => {
   }
 };
 
+//update bike by vendor
+const updateBikeByVendor = async (req, res) => {
+  try {
+    // Find the vendor by ID
+    let vendor = await Vendor.findById(req.params.id);
+
+    if (!vendor) {
+      return res.status(404).json({ message: "Vendor not found" });
+    }
+
+    // Add the new bike to the vendor's bikes array
+    vendor.bikes.push(req.body);
+
+    // Save the updated vendor document
+    await vendor.save();
+
+    res.status(200).json({ message: "Bike added successfully", vendor });
+  } catch (error) {
+    res.status(500).json({ message: "Error adding bike to vendor", error });
+  }
+};
+
 // Delete a vendor by ID
 const deleteVendor = async (req, res) => {
   try {
@@ -71,11 +93,43 @@ const deleteVendor = async (req, res) => {
     res.status(500).json({ message: "Error deleting vendor", error });
   }
 };
+//delete bike by  vendor
+const deleteBikeByVendor = async (req, res) => {
+  try {
+    // Find the vendor by ID
+    const vendor = await Vendor.findById(req.params.vendorId);
+
+    if (!vendor) {
+      return res.status(404).json({ message: "Vendor not found" });
+    }
+
+    // Find the bike index within the vendor's bikes array
+    const bikeIndex = vendor.bikes.findIndex(
+      (bike) => bike._id.toString() === req.params.bikeId
+    );
+
+    if (bikeIndex === -1) {
+      return res.status(404).json({ message: "Bike not found" });
+    }
+
+    // Remove the bike from the array
+    vendor.bikes.splice(bikeIndex, 1);
+
+    // Save the vendor after modification
+    await vendor.save();
+
+    res.status(200).json({ message: "Bike deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error in deleting bike", error });
+  }
+};
 
 module.exports = {
   createVendor,
   getVendors,
   getVendorById,
   updateVendor,
+  updateBikeByVendor,
   deleteVendor,
+  deleteBikeByVendor,
 };

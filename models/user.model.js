@@ -21,12 +21,6 @@ const UserSchema = mongoose.Schema(
     verified: {
       type: Boolean,
     },
-    driving_license: {
-      type: String,
-    },
-    id_proof: {
-      type: String,
-    },
   },
   {
     timestamps: true,
