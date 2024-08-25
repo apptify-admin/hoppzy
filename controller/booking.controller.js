@@ -3,13 +3,15 @@ const Booking = require("../models/booking.model.js");
 //create
 const createBooking = async (req, res) => {
   try {
-    const { userId, bikeId, bookingDate, returnDate } = req.body;
+    const { userId, bikeId, startDate, startTime, endDate, endTime } = req.body;
 
     const newBooking = new Booking({
       userId,
       bikeId,
-      bookingDate,
-      returnDate,
+      startDate,
+      startTime,
+      endDate,
+      endTime,
     });
     await newBooking.save();
     res.status(201).json({
@@ -21,10 +23,24 @@ const createBooking = async (req, res) => {
   }
 };
 
-// Update a booking by ID
-const updatebooking = async (req, res) => {
+//get all booking
+
+const getBooking = async (req, res) => {
+  // Get all booking
   try {
-    const booking = await booking.findByIdAndUpdate(req.params.id, req.body, {
+    const bookings = await Booking.find({});
+    res.status(200).json({ message: "All bookings", bookings });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error retrieving bookings", error: error.message });
+  }
+};
+
+// Update a booking by ID
+const updateBooking = async (req, res) => {
+  try {
+    const booking = await Booking.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
     });
@@ -39,6 +55,6 @@ const updatebooking = async (req, res) => {
 
 module.exports = {
   createBooking,
-
-  updatebooking,
+  getBooking,
+  updateBooking,
 };

@@ -1,13 +1,14 @@
 const express = require("express");
 const {
   createBooking,
-
+  getBooking,
   updateBooking,
-} = require("../controller/Bookings.controller.js");
+} = require("../controller/booking.controller.js");
 
 const router = express.Router();
 
 router.post("/", createBooking);
+router.get("/", getBooking);
 
 router.put("/:id", updateBooking);
 

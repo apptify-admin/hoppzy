@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const userRouter = require("./routes/user.route.js");
 const proofRouter = require("./routes/proof.route.js");
 const vendorRouter = require("./routes/vendors.route.js");
+const bookingRouter = require("./routes/booking.route.js");
+const addonRouter = require("./routes/addon.route.js");
 const app = express();
 
 //middleware
@@ -13,6 +15,8 @@ app.use(express.json());
 app.use("/api/user", userRouter);
 app.use("/api/proof", proofRouter);
 app.use("/api/vendors", vendorRouter);
+app.use("/api/booking", bookingRouter);
+app.use("/api/addon", addonRouter);
 
 //test
 app.get("/", (req, res) => {
